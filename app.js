@@ -26,7 +26,7 @@ app.listen(port, () => console.log(`Server running on port ${port}`));
 const mongoose = require('mongoose');
 // const db = "mongodb+srv://admin:admin@cluster-ziv9l.mongodb.net/TasksManagerDB?retryWrites=true&w=majority"
 var db = ''
-process.env.ENV = 'Test';
+// process.env.ENV = 'Test';
 if (process.env.ENV == 'Test') {
   db = "mongodb+srv://admin:admin@cluster-ziv9l.mongodb.net/TasksManagerDB_test?retryWrites=true&w=majority"
 }
