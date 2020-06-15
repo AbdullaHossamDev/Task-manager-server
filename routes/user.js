@@ -99,19 +99,32 @@ router.get('/user', verifyToken, (req, res) => {
   res.status(200).json(req.user);
 })
 
+router.delete('/delete', verifyToken, (req, res) => {
+  const userId = req.user._id;
+
+  User.deleteOne({_id: userId},(err, data)=> {
+    if (err) {
+      res.status(500).send('Internal server error');
+    } else {
+        // res.status(200).send('Deleted successfully');
+        res.status(200).json({msg:'User deleted successfully'})
+    }   
+  })
+})
+
 module.exports = router;
 
 function verifyToken(req, res, next) {
   if (!req.headers.authorization) {
-    return res.status(401).send('Unauthorized request 1')
+    return res.status(401).send('Unauthorized request')
   }
   let token = req.headers.authorization.split(' ')[1];
   if (token === 'null') {
-    return res.status(401).send('Unauthorized request 2')
+    return res.status(401).send('Unauthorized request')
   }
   let payload = jwt.verify(token, 'secretKey');
   if (!payload) {
-    return res.status(401).send('Unauthorized request 3')
+    return res.status(401).send('Unauthorized request')
   }
   let userId = payload.subject;
   User.findOne({ _id: userId }, (err, user) => {

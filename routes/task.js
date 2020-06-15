@@ -66,23 +66,7 @@ router.get('/get', (req, res) => {
   )
 });
 
-router.patch('/update', (req, res) => {
-  let { id, done, endDate } = req.body;
-  if (!id) {
-    res.status(400).send('Bad request');
-  } else {
-    Task.updateOne(
-      { _id: id },
-      { $set: {done, endDate} }, (err, updatedTasl) => {
-        if (err) {
-          res.status(500).send('Internal server error');
-        } else {
-          res.status(200).json({msg:'Task updated successfully'})
-        }
-      }
-    )
-  }
-})
+
 
 router.put('/update', (req, res) => {
   let { _id: id, name, description, stage, startDate, endDate, done, workflowId} = req.body;

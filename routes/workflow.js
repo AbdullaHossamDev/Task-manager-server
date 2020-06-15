@@ -109,7 +109,7 @@ router.get('/get/:id', (req, res) => {
 router.put('/update', (req, res) => {
   let { _id, name, stages, status, createdBy, users } = req.body;
   if (createdBy != req.user._id) {
-    return res.status(400).send('Unauthorized request');
+    return res.status(401).send('Unauthorized request');
   }
   if (!name || !stages || !status) {
     res.status(400).send('Bad request');
