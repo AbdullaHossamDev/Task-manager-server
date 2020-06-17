@@ -91,7 +91,7 @@ router.get('/get/:id', (req, res) => {
 
         },
       },
-      { $match: { $and: [{_id: mongoose.Types.ObjectId(id.toString()) }, { $expr: { $in: [req.user._id, "$users"] } } ]   } },
+      { $match: { $or: [{$expr: { $eq: ["$status", "public"] }}, {$and: [{_id: mongoose.Types.ObjectId(id.toString()) }, { $expr: { $in: [req.user._id, "$users"] } } ]}]   } },
     ],
     (err, data) => {
       if (err) {
